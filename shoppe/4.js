@@ -7,19 +7,22 @@ class Scheduler {
         this.count = 0
         this.maxCount = 2
     }
+
     add(task) {
-        return new Promise((resolve) => {
+        return new Promise((reslove) => {
             const wrappedTask = () => {
                 return task().then(() => {
                     this.count--
                     this.run()
-                    resolve()
+                    reslove()
                 })
             }
+
             this.queue.push(wrappedTask)
             this.run()
         })
     }
+
     run() {
         while (this.count < this.maxCount && this.queue.length > 0) {
             this.count++
@@ -29,11 +32,12 @@ class Scheduler {
     }
 }
 
+const scheduler = new Scheduler()
+
 const timeout = (time) => new Promise(resolve => {
     setTimeout(resolve, time)
 })
 
-const scheduler = new Scheduler()
 const addTask = (time, order) => {
     scheduler.add(() => timeout(time)).then(() => console.log(order))
 }
