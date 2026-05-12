@@ -5,24 +5,24 @@ function limitConcurrency(urls, maxLimit, fetchFn) {
         let finishedCount = 0
 
         const next = () => {
-            if (index >= urls.length) {
+            if (index > urls.length) {
                 return
             }
 
             const currentIndex = index++
             const url = urls[currentIndex]
 
-            fetchFn(url).then(res => {
+            fetchFn(url).then((res) => {
                 result[currentIndex] = res
-            }).catch(err => {
+            }).catch((err) => {
                 result[currentIndex] = err
             }).finally(() => {
                 finishedCount++
+
                 if (finishedCount === urls.length) {
                     resolve(result)
-                } else {
-                    next()
                 }
+                next()
             })
         }
 
@@ -34,12 +34,13 @@ function limitConcurrency(urls, maxLimit, fetchFn) {
 }
 
 const mockFetch = (url) => {
-    console.log(`🚀 开始请求: ${url}`)
-    return new Promise(resolve => {
+    console.log(`start fetch, ${url}`)
+    return new Promise((resolve) => {
         setTimeout(() => {
-            console.log(`✅ 完成请求: ${url}`)
+            console.log(`finish fetch, ${url}`)
             resolve(`result for ${url}`)
-        }, Math.random() * 3000)
+        }, Math.random() * 2000)
     })
 }
 limitConcurrency(['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8'], 3, mockFetch).then(console.log)
+'🚀✅'
