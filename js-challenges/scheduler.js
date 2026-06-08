@@ -9,13 +9,15 @@ class Scheduler {
         return new Promise((resolve, reject) => {
             const run = async () => {
                 this.curTasksCount++
+
                 try {
-                    const result = await fn()
-                    resolve(result)
+                    const res = await fn()
+                    resolve(res)
                 } catch (error) {
                     reject(error)
                 } finally {
                     this.curTasksCount--
+
                     if (this.waitQueue.length) {
                         const next = this.waitQueue.shift()
                         next()
