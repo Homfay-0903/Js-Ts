@@ -23,4 +23,4 @@ function myRepeat(func, count, timeout) {
 }
 
 const repeatLog = myRepeat(console.log, 5, 1000)
-repeatLog("hello world")
+repeatLog('hello', 'world', '!')
