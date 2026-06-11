@@ -5,11 +5,11 @@ function myInterrupt(callbackFn, timeout = 5000) {
         }, timeout);
     })
 
-    return Promise.race([callbackFn, waitFn])
+    return Promise.race([callbackFn(), waitFn])
 }
 
-const test1 = new Promise(resolve => setTimeout(() => resolve('success1'), 4000))
-const test2 = new Promise(resolve => setTimeout(() => resolve('success2'), 6000))
+const test1 = () => new Promise(resolve => setTimeout(() => resolve('success1'), 4000))
+const test2 = () => new Promise(resolve => setTimeout(() => resolve('success2'), 6000))
 
 myInterrupt(test1)
     .then((res) => console.log('res:', res))
