@@ -1,10 +1,15 @@
 function myRace(promises) {
     return new Promise((resolve, reject) => {
-        if (promises.length === 0) {
-            return
+        if (promises == null) {
+            return reject(new TypeError('promises must be an iterable'))
         }
 
-        for (const promise of promises) {
+        const iterable = Array.from(promises)
+        if (iterable.length === 0) {
+            return // 空 iterable 返回永远 pending 的 Promise
+        }
+
+        for (const promise of iterable) {
             Promise.resolve(promise).then(resolve, reject)
         }
     })

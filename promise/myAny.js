@@ -10,6 +10,8 @@ Promise.myAny = function (promiseList) {
             const errors = []
             const len = promises.length
 
+            let rejectedCount = 0
+
             if (!len) {
                 return reject(new AggregateError([], 'All promises were rejected'))
             }
@@ -21,8 +23,9 @@ Promise.myAny = function (promiseList) {
                     },
                     (reason) => {
                         errors[index] = reason
+                        rejectedCount++
 
-                        if (errors.length === len) {
+                        if (rejectedCount === len) {
                             reject(new AggregateError(errors, 'All promises were rejected'))
                         }
                     }
