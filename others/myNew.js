@@ -1,10 +1,13 @@
 function myNew(constructor, ...args) {
-    const obj = Object.create(constructor.prototype)
-    const result = constructor.apply(obj, args)
+    //const obj = Object.create(constructor.prototype)
+    //const result = constructor.apply(obj, args)
+    const instance = {}
+    instance.__proto__ = constructor.prototype
+    const result = constructor.apply(instance, args)
 
     return (result !== null && (typeof result === 'function' || typeof result === 'object')
         ? result
-        : obj)
+        : instance)
 }
 
 function Person(name, age) {
