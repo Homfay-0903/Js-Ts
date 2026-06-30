@@ -1,4 +1,9 @@
-function myRace(promises) {
+/**
+ * 
+ * @param {Array} promises 
+ * @returns 
+ */
+/*function myRace(promises) {
     return new Promise((resolve, reject) => {
         if (promises == null) {
             return reject(new TypeError('promises must be an iterable'))
@@ -11,6 +16,34 @@ function myRace(promises) {
 
         for (const promise of iterable) {
             Promise.resolve(promise).then(resolve, reject)
+        }
+    })
+}*/
+
+function myRace(promises) {
+    return new Promise((reslove, reject) => {
+        try {
+            if (promises === null) {
+                return reject(new TypeError('promises can not be null'))
+            }
+
+            if (!promises.length) {
+                return
+            }
+
+            for (const promise of promises) {
+                Promise.resolve(promise)
+                    .then(
+                        (res) => {
+                            reslove(res)
+                        },
+                        (reason) => {
+                            reject(reason)
+                        }
+                    )
+            }
+        } catch (error) {
+            reject(error)
         }
     })
 }

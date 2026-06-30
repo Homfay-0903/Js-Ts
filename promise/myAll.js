@@ -7,6 +7,10 @@ function myPromiseAll(promises) {
         const results = []
         const promisesLength = promises.length
 
+        if (!promisesLength) {
+            return resolve(results)
+        }
+
         let completedLength = 0
 
         for (let i = 0; i < promisesLength; i++) {
