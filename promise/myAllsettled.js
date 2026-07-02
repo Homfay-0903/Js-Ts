@@ -75,7 +75,7 @@ function myAllsettled(promises) {
                     )
             }
         } catch (error) {
-
+            reject(error)
         }
     })
 }
