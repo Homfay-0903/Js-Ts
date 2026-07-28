@@ -1,16 +1,5 @@
 > 集锦大厂面试常考的 前端手写题和 leetcode 算法题
 
-### 🏠 [DOCS](https://sunny-117.github.io/js-challenges/)
-
-## Author
-
-👤 **sunny-117**
-
-- Website: https://sunny-117.github.io/blog/
-- Twitter: [@zhiqiangfu6sun](https://twitter.com/zhiqiangfu6sun)
-- Github: [@sunny-117](https://github.com/sunny-117)
-- personal share: [个人分享](https://jzq422bol5.feishu.cn/docx/doxcnyogD4POabvLHoa1yoEH9W0)
-
 # 前端 JavaScript 手写题
 
 ## JavaScript HOT 100 题
@@ -539,20 +528,3 @@
 - [Markdown 文本解析](https://github.com/Sunny-117/js-challenges/issues/504)
 
 社区建议收集区：https://github.com/Sunny-117/js-challenges/discussions
-
-## 关于捐赠
-
-本项目会持续更新
-
-整理不易，如果您觉得本项目对您有帮助，您可以通过支付宝或微信，扫描二维码，捐赠 X 元，^\_^，谢谢！
-
-<img src="./alipay.jpg" width="200"> <img src='./weixin.png' width="200">
-
-## 📝 License
-
-Copyright © 2022 [sunny-117](https://github.com/sunny-117).<br />
-This project is [MIT](https://zh.wikipedia.org/zh-cn/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89) licensed.
-
----
-
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
