@@ -38,38 +38,39 @@ async function asyncFetch() {
 }
 */
 
-function asyncFetch(params) {
+async function asyncFetch(params) {
     const api1 = new Promise((resolve, reject) => {
-        try {
-            setTimeout(() => {
+        setTimeout(() => {
+            try {
                 resolve('api1')
-            }, 1000)
-        } catch (error) {
-            reject(error)
-        }
+            } catch (error) {
+                reject(error)
+            }
+        }, 3000);
     })
 
     const api2 = new Promise((resolve, reject) => {
-        try {
-            setTimeout(() => {
+        setTimeout(() => {
+            try {
+                
                 resolve('api2')
-            }, 2000)
-        } catch (error) {
-            reject(error)
-        }
+            } catch (error) {
+                reject(error)
+            }
+        }, 3000);
     })
 
     const api3 = new Promise((resolve, reject) => {
-        try {
-            setTimeout(() => {
+        setTimeout(() => {
+            try {
                 resolve('api3')
-            }, 3000)
-        } catch (error) {
-            reject(error)
-        }
+            } catch (error) {
+                reject(error)
+            }
+        }, 3000)
     })
 
-    Promise.all([api1, api2, api3])
+    return Promise.all([api1, api2, api3])
         .then(
             (res) => {
                 console.log(...res)

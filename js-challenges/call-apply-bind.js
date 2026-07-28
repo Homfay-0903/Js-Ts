@@ -1,3 +1,4 @@
+/*
 Function.prototype.myCall = function (obj, ...args) {
     obj = (obj === undefined || obj === null) ? window : obj
     obj.fn = this
@@ -31,6 +32,41 @@ Function.prototype.myBind = function (obj, ...args1) {
         return res
     }
 }
+*/
+
+Function.prototype.myCall = function (obj, ...args) {
+    obj = (obj === undefined || obj === null) ? window : obj
+    obj.fn = this
+
+    const res = obj.fn(...args)
+    delete obj.fn
+
+    return res
+}
+
+Function.prototype.myApply = function (obj, args) {
+    obj = (obj === undefined || obj === null) ? window : obj
+    obj.fn = this
+
+    const res = obj.fn(...args)
+    delete obj.fn
+
+    return res
+}
+
+Function.prototype.myBind = function (obj, ...args1) {
+    obj = (obj === undefined || obj === null) ? window : obj
+    const cacheThis = this
+
+    return function(...args2) {
+        obj.fn = cacheThis
+        const res = obj.fn(...[...args1, ...args2])
+        delete obj.fn
+
+        return res
+    }
+}
+
 
 function introduce(age, city) {
     console.log(`我是${this.name}，今年${age}岁，来自${city}`)
