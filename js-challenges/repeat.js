@@ -1,3 +1,4 @@
+/*
 function delayExecute(func, args, timeout) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -22,5 +23,29 @@ function myRepeat(func, count, timeout) {
     }
 }
 
+
 const repeatLog = myRepeat(console.log, 5, 1000)
 repeatLog('hello', 'world', '!')
+*/
+
+/**实现一个每 n 秒执行一次的函数，执行 m 次后终止 */
+function executor(callback, delay) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            callback()
+            resolve()
+        }, delay)
+    })
+}
+
+function printf() {
+    console.log('hello, world')
+}
+
+async function repeat(n, delay) {
+    for (let i = 0; i < n; i++) {
+        await executor(printf, delay)
+    }
+}
+
+repeat(5, 1000)
