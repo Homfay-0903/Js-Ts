@@ -1,3 +1,4 @@
+/*
 function mySetInterval(callback, delay) {
     const timerMarker = {
         id: null
@@ -28,5 +29,39 @@ const clearIntervalFunc = mySetInterval(() => {
     if (count === 5) {
         clearIntervalFunc() // 5次后停止
         console.log('定时器已停止')
+    }
+}, 1000)
+*/
+
+/**用 setTimeout 实现 setInterval */
+
+function mySetInterval(callback, delay) {
+    let timerId = null
+
+    function run() {
+        callback()
+
+        if (timerId !== null) {
+            timerId = setTimeout(run, delay)
+        }
+    }
+
+    timerId = setTimeout(run, delay)
+
+    return function myClearInterval() {
+        clearTimeout(timerId)
+        timerId = null
+    }
+}
+
+let count = 0
+
+const clearInterval = mySetInterval(() => {
+    count++
+    console.log(count)
+
+    if (count === 5) {
+        clearInterval()
+        console.log('stop')
     }
 }, 1000)
