@@ -1,3 +1,4 @@
+/*
 async function fetchSequentially() {
     try {
         const res = []
@@ -34,3 +35,29 @@ async function fetchInParallel() {
         console.error("其中任意一个请求失败:", error)
     }
 }
+*/
+
+/**实现函数：全部请求成功才返回结果，发展返回失败结果 */
+async function fetchInParallel(reqList) {
+    try {
+        const res = await Promise.all(reqList)
+
+        return res
+    } catch (error) {
+        console.log("其中任意一个请求失败:", error)
+        throw error
+    }
+}
+
+const request1 = new Promise(resolve => setTimeout(() => resolve('s1'), 1000))
+const request2 = new Promise(resolve => setTimeout(() => resolve('s2'), 2000))
+const request3 = new Promise(resolve => setTimeout(() => resolve('s3'), 3000))
+
+;(async function() {
+    try {
+        const res = await fetchInParallel([request1, request2, request3])
+        console.log(...res)
+    } catch (error) {
+        console.log(error)     
+    }
+})()
