@@ -1,3 +1,4 @@
+/*
 class Scheduler {
     constructor(maxTasksCount) {
         this.maxTasksCount = maxTasksCount
@@ -33,46 +34,44 @@ class Scheduler {
         })
     }
 }
+*/
 
-/*class Scheduler {
-    constructor(maxTaskCount) {
-        this.maxTaskCount = maxTaskCount
-        this.curTaskCount = 0
-        this.waitQueue = []
+/**实现异步任务调度器 */
+class Scheduler {
+    constructor(maxTasksCount) {
+        this.maxTasksCount = maxTasksCount
+        this.curTasksCount = 0
+        this.waitTasksQueue = []
     }
 
     addTask(fn) {
-        return new Promise((resolve, reject) => {
-            const task = { fn, resolve, reject }
+        return new Promise((reslove, reject) => {
+            const run = async () => {
+                this.curTasksCount++
 
-            if (this.curTaskCount < this.maxTaskCount) {
-                this.run(task)
+                try {
+                    const res = await fn()
+                    reslove(res)    
+                } catch (error) {
+                    reject(error)
+                } finally {
+                    this.curTasksCount--
+
+                    if (this.waitTasksQueue.length) {
+                        const next = this.waitTasksQueue.shift()
+                        next()
+                    }
+                }
+            }
+
+            if (this.curTasksCount < this.maxTasksCount) {
+                run()
             } else {
-                this.waitQueue.push(task)
+                this.waitTasksQueue.push(run)
             }
         })
     }
-
-    async run(task) {
-        const { fn, resolve, reject } = task
-
-        this.curTaskCount++
-
-        try {
-            const res = await fn()
-            resolve(res)
-        } catch (error) {
-            reject(error)
-        } finally {
-            this.curTaskCount--
-
-            if (this.waitQueue.length) {
-                const next = this.waitQueue.shift()
-                this.run(next)
-            }
-        }
-    }
-}*/
+}
 
 const scheduler = new Scheduler(2)
 

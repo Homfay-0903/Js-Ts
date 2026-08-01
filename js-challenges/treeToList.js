@@ -1,9 +1,5 @@
-/**
- * 树形结构转列表 - 递归版
- * @param {Array} tree - 树形数组
- * @returns {Array} 扁平列表
- */
-/*function treeToList(tree) {
+/*
+function treeToList(tree) {
     const result = []
 
     const traverse = (nodes) => {
@@ -20,25 +16,35 @@
     traverse(tree)
 
     console.log(result)
-}*/
+}
+treeToList(data)
+*/
+
+/**实现将 树形结构 转换为 数组（list）结构 */
 
 function treeToList(tree) {
     const res = []
+    const visited = new Set()
 
-    const dfs = (nodes) => {
+    function traverse(nodes) {
         for (const node of nodes) {
-            const { children, ...rest } = node
-
-            if (children) {
-                dfs(children)
+            if (visited.has(node)) {
+                continue
             }
 
+            visited.add(node)
+            const { children, ...rest } = node
             res.push(rest)
+
+            if (Array.isArray(children) && children.length) {
+                traverse(children)
+            }
         }
     }
-    dfs(tree)
 
-    return res.reverse()
+    traverse(tree)
+
+    return res
 }
 
 const data = [
@@ -56,5 +62,4 @@ const data = [
     }
 ]
 
-const list = treeToList(data)
-console.log(list)
+console.log(treeToList(data))
