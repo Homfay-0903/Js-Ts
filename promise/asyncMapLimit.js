@@ -1,3 +1,4 @@
+/*
 // 模拟异步任务：每个任务耗时随机，打印执行时间
 function asyncTask(item) {
     const delay = Math.random() * 10 * 1000;
@@ -51,3 +52,54 @@ function asyncMapLimit(arr, limit, asyncFn) {
 // 测试：对 [1,2,3,4,5] 执行，限制并发数为2
 asyncMapLimit([1, 2, 3, 4, 5], 2, asyncTask).then(console.log);
 // 应该同时开始1和2，其中一个完成后才启动3，依此类推，最终输出 [1,2,3,4,5]
+*/
+
+/**实现一个限制请求数量的函数 */
+function schduler(reqList, limit, reqFn) {
+    return new Promise((resolve, reject) => {
+        const res = new Array(reqList.length)
+        let curIdx = 0, activeIdx = 0
+
+        function processNext() {
+            if (curIdx >= reqList.length) {
+                if (activeIdx === 0) {
+                    resolve(res)
+                }
+
+                return
+            }
+
+            let index = curIdx
+            let item = reqList[index]
+
+            curIdx++
+            activeIdx++
+
+            reqFn(item)
+                .then(
+                    (val) => {
+                        res[index] = val
+                        activeIdx--
+                        processNext()
+                    },
+                    (err) => reject(err)
+                )
+        }
+
+        const initialCount = Math.min(reqList.length, limit)
+        for (let i = 0; i < initialCount; i++) {
+            processNext()
+        }
+    })
+}
+
+function asyncTask(item) {
+    const delay = Math.random() * 10 * 1000
+    console.log(`need ${delay} ms`)
+    return new Promise(resolve => setTimeout(() => {
+        console.log(`${item} finish`)
+        resolve(item)
+    }, delay))
+}
+
+schduler([1, 2, 3], 2, asyncTask).then(console.log)
