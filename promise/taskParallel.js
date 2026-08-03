@@ -11,7 +11,7 @@
     return results
 }*/
 
-/** TODO: 返回一个 Promise，结果为 ['A', 'B', 'C'],期望输出 ['A', 'B', 'C']，且顺序执行 */
+/** TODO: 返回一个 Promise，结果为 ['A', 'B', 'C'],期望输出 ['A', 'B', 'C']，且并行执行 */
 /**
  * 
  * @param {Array} tasks 
@@ -50,13 +50,13 @@ function runTasksInParallel(tasks) {
 
 // 提供的三个异步任务
 function taskA() {
-    return Promise.resolve('A');
+    return new Promise(resolve => setTimeout(() => resolve('A'), 1000));
 }
 function taskB() {
-    return new Promise(resolve => setTimeout(() => resolve('B'), 100));
+    return new Promise(resolve => setTimeout(() => resolve('B'), 1000));
 }
 function taskC() {
-    return Promise.resolve('C');
+    return new Promise(resolve => setTimeout(() => resolve('C'), 1000));
 }
 
 runTasksInParallel([taskA, taskB, taskC]).then(console.log)
