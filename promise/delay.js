@@ -1,3 +1,4 @@
+/*
 // 你的代码
 function delay(ms) {
     // TODO
@@ -14,3 +15,17 @@ async function run(params) {
 }
 
 run(3000)
+*/
+
+/**实现一个暂停函数 */
+function abort(delay) {
+    return new Promise(resolve => setTimeout(resolve, delay))
+}
+
+async function run(delay) {
+    console.log('start')
+    await abort(delay)
+    console.log('end')
+}
+
+run(1000)
