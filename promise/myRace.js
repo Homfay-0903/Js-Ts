@@ -21,25 +21,23 @@
 }*/
 
 function myRace(promises) {
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
+        if (!Array.isArray(promises)) {
+            return reject(new TypeError('promise must be an Array'))
+        }
+
+        const n = promises.length
+
+        if (n === 0) {
+            return
+        }
+
         try {
-            if (promises === null) {
-                return reject(new TypeError('promises can not be null'))
-            }
-
-            if (!promises.length) {
-                return
-            }
-
-            for (const promise of promises) {
-                Promise.resolve(promise)
+            for (let i = 0; i < n; i++) {
+                Promise.resolve(promises[i])
                     .then(
-                        (res) => {
-                            reslove(res)
-                        },
-                        (reason) => {
-                            reject(reason)
-                        }
+                        (val) => resolve(val),
+                        (err) => reject(err)
                     )
             }
         } catch (error) {
