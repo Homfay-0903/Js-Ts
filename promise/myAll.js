@@ -1,7 +1,3 @@
-/**
- * 
- * @param {Array} promises 
- */
 /*function myPromiseAll(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
@@ -34,42 +30,41 @@
 
     })
 }*/
-
+/**实现Promise.all */
+/**
+ * 
+ * @param {Array} promises 
+ */
 function myAll(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promises must be an Array'))
+            return reject(new TypeError('promises must be an array'))
         }
 
         const res = []
-        const len = promises.length
+        const n = promises.length
 
         let finishedCount = 0
 
-        if (!len) {
-            return reject(new TypeError('promises can not be null'))
-        }
-
         try {
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < n; i++) {
                 Promise.resolve(promises[i])
                     .then(
                         (val) => {
-                            finishedCount++
                             res[i] = val
+                            finishedCount++
 
-                            if (finishedCount === len) {
+                            if (finishedCount === n) {
                                 resolve(res)
                             }
                         },
-                        (reason) => {
-                            reject(reason)
-                        }
+                        (err) => reject(err)
                     )
             }
         } catch (error) {
             reject(error)
         }
+
     })
 }
 
