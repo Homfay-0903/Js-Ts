@@ -1,8 +1,3 @@
-/**
- * 
- * @param {Array} promises 
- * @returns 
- */
 /*function myAllsettled(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
@@ -37,52 +32,49 @@
         }
     })
 }*/
+/**实现Promise.allSettled */
 
+/**
+ * 
+ * @param {Array} promises 
+ * @returns 
+ */
 function myAllsettled(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promises must be an Array'))
+            return reject(new TypeError('promises must be an array'))
         }
 
         const res = []
-        const len = promises.length
+        const n = promises.length
 
         let finishedCount = 0
 
-        if (!len) {
-            return reject(new TypeError('promises can not be null'))
-        }
-
         try {
-            for (let i = 0; i < len; i++) {
+            for (let i = 0; i < n; i++) {
                 Promise.resolve(promises[i])
                     .then(
-                        (val) => {
-                            res[i] = { status: 'fulfilled', value: val }
-                        },
-                        (reason) => {
-                            res[i] = { status: 'rejected', reason: reason }
-                        }
+                        (val) => res[i] = { status: 'fufilled', value: val },
+                        (err) => res[i] = { status: 'rejected', reason: err }
                     )
-                    .finally(
-                        () => {
-                            finishedCount++
+                    .finally(() => {
+                        finishedCount++
 
-                            if (finishedCount === len) {
-                                resolve(res)
-                            }
+                        if (finishedCount === n) {
+                            resolve(res)
                         }
-                    )
+                    })
             }
         } catch (error) {
             reject(error)
         }
+
     })
 }
 
 // 测试
 const p1 = Promise.resolve(1);
-const p2 = new Promise(resolve => setTimeout(() => resolve(2), 100))
+const p2 = new Promise(resolve => setTimeout(() => resolve(2), 1000))
 const p3 = 3; // 普通值自动包装
 const p4 = Promise.reject('error here')
 
