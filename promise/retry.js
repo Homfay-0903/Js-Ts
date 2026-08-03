@@ -1,3 +1,4 @@
+/*
 // 示例：模拟一个可能失败的请求，成功率 30%
 let attempt = 0;
 function unstableRequest() {
@@ -7,19 +8,6 @@ function unstableRequest() {
         Math.random() < 0.1 ? resolve('成功') : reject('失败');
     });
 }
-
-/*function retry(fn, retries) {
-    // TODO
-    return fn().catch((err) => {
-        if (retries > 0) {
-            retries--
-            console.log(`defeat, have ${retries} times only`)
-            return retry(fn, retries)
-        } else {
-            throw err
-        }
-    })
-}*/
 
 async function retry(fn, retries) {
     for (let i = 0; i < retries + 1; i++) {
@@ -37,3 +25,34 @@ async function retry(fn, retries) {
 }
 
 retry(unstableRequest, 3).then(console.log).catch(console.error);
+*/
+
+/**实现一个重复请求的函数，成功为止 */
+function unstableRequest(retryIdx) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log(`尝试 ${retryIdx}`)
+            Math.random() < 0.1 ? resolve('成功') : reject('失败')
+        }, 1000)
+
+    })
+}
+
+async function retry(reqFn, retryCount) {
+    for (let i = 0; i < retryCount; i++) {
+        try {
+            const res = await reqFn(i)
+            return res
+        } catch (error) {
+            console.log(error)
+        } finally {
+             console.log(`defeat, have ${retryCount - i - 1} times only`)
+
+            if (i === retryCount) {
+                return 'no retry count'
+            }
+        }
+    }
+}
+
+retry(unstableRequest, 3).then(console.log).catch(console.error)
