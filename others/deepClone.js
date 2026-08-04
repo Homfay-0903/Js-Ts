@@ -1,3 +1,4 @@
+/*
 function deepClone(obj, map = new WeakMap()) {
     if (obj === null) {
         return null
@@ -34,6 +35,55 @@ function deepClone(obj, map = new WeakMap()) {
     Reflect.ownKeys(obj).forEach(key => {
         cloneObj[key] = deepClone(obj[key], map)
     })
+
+    return cloneObj
+}
+*/
+/**实现深度克隆 */
+/**
+ * 
+ * @param {Iterable} obj 
+ * @param {*} map 
+ * @returns 
+ */
+function deepClone(obj, map = new WeakMap()) {
+    if (obj === null) {
+        return obj
+    }
+
+    if (obj === null || typeof obj !== 'object') {
+        return obj
+    }
+
+    if (map.has(obj)) {
+        return map.get(obj)
+    }
+
+    if (obj instanceof RegExp) {
+        return new RegExp(obj.source, obj.flags)
+    }
+
+    if (obj instanceof Date) {
+        return new Date(obj.getTime())
+    }
+
+    if (obj instanceof Map) {
+        const cloneMap = new Map()
+        map.set(obj, cloneMap)
+        obj.forEach((val, key) => cloneMap.set(key, deepClone(val, map)))
+        return cloneMap
+    }
+
+    if (obj instanceof Set) {
+        const cloneSet = new Set()
+        map.set(obj, cloneSet)
+        obj.forEach(val => cloneSet.add(deepClone(val, map)))
+        return cloneSet
+    }
+
+    const cloneObj = Array.isArray(obj) ? [] : {}
+    map.set(obj, cloneObj)
+    Reflect.ownKeys(obj).forEach(key => cloneObj[key] = deepClone(obj[key], map))
 
     return cloneObj
 }
