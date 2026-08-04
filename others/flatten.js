@@ -1,3 +1,4 @@
+/*
 function flatten(arr) {
     if (!Array.isArray(arr)) {
         throw TypeError('arr is not a array')
@@ -27,6 +28,29 @@ function flattenIterative(arr) {
 
     return result.reverse()
 }
+*/
+
+/**实现数组扁平化 */
+function flattenIterative(arr) {
+    if (!Array.isArray(arr)) {
+        throw new TypeError('arr is not a array')
+    }
+
+    const stack = [...arr]
+    const res = []
+
+    while (stack.length > 0) {
+        const next = stack.pop()
+
+        if (Array.isArray(next)) {
+            stack.push(...next)
+        } else {
+            res.push(next)
+        }
+    }
+
+    return res.reverse()
+}
 
 function flattenDepth(arr, depth = 1) {
     if (!Array.isArray(arr)) {
@@ -39,7 +63,7 @@ function flattenDepth(arr, depth = 1) {
         : arr.slice()
 }
 
-const flattened = flattenIterative([1, [2, [3, [4]]]])
+const flattened = flattenIterative([1, [2, [3, [4]]], [5], 7])
 const flattendepth = flattenDepth([1, [2, [3, [4]]]], 2)
 console.log(flattened)
 console.log(flattendepth)
