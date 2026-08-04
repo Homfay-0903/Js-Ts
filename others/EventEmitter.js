@@ -1,3 +1,4 @@
+/*
 class EventEmitter {
     constructor() {
         this.events = {}
@@ -35,6 +36,56 @@ class EventEmitter {
             this.off(event, onceFn)
         }
         this.on(event, onceFn)
+        return this
+    }
+}
+*/
+
+/**实现事件的监听与发布 */
+class EventEmitter {
+    constructor() {
+        this.events = {}
+    }
+
+    on(event, fn) {
+        if (!this.events[event]) {
+            this.events[event] = []
+        }
+        this.events[event].push(fn)
+
+        return this
+    }
+
+    emit(event, ...args) {
+        if (!this.events[event]) {
+            throw new TypeError('event no exits')
+        }
+
+        this.events[event].forEach(fn => {
+            fn.apply(this, args)
+        })
+
+        return this
+    }
+
+    off(event, fn) {
+        if (!this.events[event]) {
+            return this
+        }
+
+        this.events[event] = this.events[event].filter((cb) => cb !== fn)
+
+        return this
+    }
+
+    once(event, fn) {
+        const onceFn = (...args) => {
+            fn.apply(this, args)
+            this.off(event, onceFn)
+        }
+
+        this.on(event, onceFn)
+
         return this
     }
 }
