@@ -27,8 +27,7 @@ console.log(p.sayHi())
 
 /**实现 new 方法 */
 function myNew(constructor, ...args) {
-    const newInstance = {}
-    newInstance.__proto__ = constructor.prototype
+    const newInstance = Object.create(constructor.prototype)
 
     const res = constructor.apply(newInstance, args)
 
@@ -49,3 +48,4 @@ Person.prototype.sayHi = function () {
 const p = myNew(Person, 'alice', 20)
 console.log(p.name)
 console.log(p.sayHi())
+console.log(p instanceof Person)
