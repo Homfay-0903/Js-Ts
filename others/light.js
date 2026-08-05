@@ -8,20 +8,23 @@ function yellow() {
     console.log('yellow')
 }
 
-function light(callback, time) {
-    return new Promise((resolve) => {
+function lightContinue(fn, delay) {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            callback && callback()
-            resolve()
-        }, time)
+            try {
+                fn()
+                resolve()
+            } catch (error) {
+                reject(error)
+            }
+        }, delay)
     })
 }
 
-async function lightStep() {
-    await light(red, 3000)
-    await light(yellow, 2000)
-    await light(green, 1000)
-    await lightStep()
+async function lightSwitch() {
+    await lightContinue(red, 1000)
+    await lightContinue(green, 2000)
+    await lightContinue(yellow, 3000)
 }
 
-lightStep()
+lightSwitch()
