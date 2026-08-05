@@ -17,7 +17,7 @@ function quickSort(arr) {
         return arr
     }
 
-    const left = [], equal = [], right = []
+    let left = [], equal = [], right = []
     const pivot = arr[Math.floor(arr.length / 2)]
 
     for (const num of arr) {
