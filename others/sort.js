@@ -12,7 +12,7 @@ function bubbleSort(arr) {
     return arr
 }
 
-function quickSort(arr) {
+function quickSortBase(arr) {
     if (arr.length <= 1) {
         return arr
     }
@@ -30,10 +30,42 @@ function quickSort(arr) {
         }
     }
 
-    return [...quickSort(left), ...equal, ...quickSort(right)]
+    return [...quickSortBase(left), ...equal, ...quickSortBase(right)]
+}
+
+function quickSortHigh(arr, low = 0, high = arr.length - 1) {
+    if (low >= high) {
+        return arr
+    }
+
+    let leftEnd = low, rightStart = high
+    let pointer = leftEnd
+
+    const pivotNum = arr[Math.floor((low + high) / 2)]
+
+    while (pointer <= rightStart) {
+        const curNum = arr[pointer]
+
+        if (curNum < pivotNum) {
+            [arr[leftEnd], arr[pointer]] = [arr[pointer], arr[leftEnd]]
+            leftEnd++
+            pointer++
+        } else if (curNum > pivotNum) {
+            [arr[rightStart], arr[pointer]] = [arr[pointer], arr[rightStart]]
+            rightStart--
+        } else {
+            pointer++
+        }
+    }
+
+    quickSortHigh(arr, low, leftEnd - 1)
+    quickSortHigh(arr, rightStart + 1, high)
+
+    return arr
 }
 
 // 测试
 const testArr = [3, 6, 8, 10, 1, 2, 1];
 console.log(bubbleSort([...testArr]))
-console.log(quickSort([...testArr])); // [1, 1, 2, 3, 6, 8, 10]
+console.log(quickSortBase([...testArr])); // [1, 1, 2, 3, 6, 8, 10]
+console.log(quickSortHigh([...testArr]));
