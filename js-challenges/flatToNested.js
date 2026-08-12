@@ -38,20 +38,19 @@ function flatToNested(flatObj, separator = '.') {
     for (const key in flatObj) {
         const keys = key.split('.')
         const n = keys.length
-
-        let curRes = res
+        let curObj = res
 
         for (let i = 0; i < n; i++) {
             const curKey = keys[i]
 
             if (i !== n - 1) {
-                if (!curRes[curKey]) {
-                    curRes[curKey] = {}
+                if (!curObj[curKey]) {
+                    curObj[curKey] = {}
                 }
 
-                curRes = curRes[curKey]
+                curObj = curObj[curKey]
             } else {
-                curRes[curKey] = flatObj[key]
+                curObj[curKey] = flatObj[key]
             }
         }
     }
