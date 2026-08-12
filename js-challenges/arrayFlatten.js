@@ -28,7 +28,7 @@ function arrayFlatten(arr) {
 
     //return arr.reduce((res, curVal) => Array.isArray(curVal) ? res.concat(arrayFlatten(curVal)) : res.concat(curVal), [])
     const flattenedArr = []
-    
+
     for (const item of arr) {
         if (Array.isArray(item)) {
             flattenedArr.push(...arrayFlatten(item))
