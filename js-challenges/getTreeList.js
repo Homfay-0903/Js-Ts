@@ -19,16 +19,23 @@ function getTreeList(rootList, parentId) {
 }
 */
 
+//实现数组转换为对象
+/**
+ * 
+ * @param {Array} nodeList 
+ * @param {Number} pid 
+ * @returns 
+ */
 function getTreeList(nodeList, pid) {
     const res = []
 
     for (const node of nodeList) {
         if (node.pid === pid) {
             const newNode = { ...node }
-            const children = getTreeList(nodeList, newNode.id)
+            const child = getTreeList(nodeList, node.id)
 
-            if (children.length) {
-                newNode.children = children
+            if (child.length) {
+                newNode.child = { ...child }
             }
 
             res.push(newNode)
