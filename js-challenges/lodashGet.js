@@ -13,7 +13,6 @@ function _get(obj, path, defaultValue = undefined) {
 */
 
 /**根据 object对象的path路径获取值。 如果解析 value 是 undefined 会以 defaultValue 取代。 */
-
 /**
  * 
  * @param {Object} obj 
