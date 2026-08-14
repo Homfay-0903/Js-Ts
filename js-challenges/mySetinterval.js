@@ -41,7 +41,7 @@ function mySetInterval(callback, delay) {
     function run() {
         callback()
 
-        if (timerId !== null) {
+        if (timerId) {
             timerId = setTimeout(run, delay)
         }
     }
@@ -49,8 +49,10 @@ function mySetInterval(callback, delay) {
     timerId = setTimeout(run, delay)
 
     return function myClearInterval() {
-        clearTimeout(timerId)
-        timerId = null
+        if (timerId) {
+            timerId = null
+            clearTimeout(timerId)
+        }
     }
 }
 
