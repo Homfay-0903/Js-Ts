@@ -31,25 +31,25 @@ new Queue()
 /**实现一个队列，并按入队顺序执行任务 */
 class Queue {
     constructor() {
-        this.tasksQueue = []
+        this.taskQueue = []
     }
 
-    addTask(callback, delay) {
-        this.tasksQueue.push({
-            callback,
+    addTask(cb, delay) {
+        this.taskQueue.push({
+            cb,
             delay
         })
 
         return this
     }
 
-    async executor(params) {
-        for (const task of this.tasksQueue) {
-            await new Promise(resolve => setTimeout(resolve, task.delay))
+    async executor() {
+        for (const task of this.taskQueue) {
+            await new Promise((resolve) => setTimeout(resolve, task.delay))
             try {
-                task.callback()
+                task.cb()
             } catch (error) {
-                console.log('任务执行出错:', error)
+                console.log('error:', error)
             }
         }
     }
