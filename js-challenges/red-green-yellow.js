@@ -57,11 +57,14 @@ function lightSwitch(callback, delay) {
 
 async function lightStart() {
     await lightSwitch(red, 1000)
+    //console.log(1)
     await lightSwitch(green, 2000)
+    //console.log(2)
     await lightSwitch(yellow, 3000)
+    //console.log(3)
 }
 
-(async function() {
+(async function () {
     while (true) {
         await lightStart()
     }
