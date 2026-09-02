@@ -32,12 +32,11 @@ function getTreeList(nodeList, pid) {
     for (const node of nodeList) {
         if (node.pid === pid) {
             const newNode = { ...node }
-            const child = getTreeList(nodeList, node.id)
+            const children = getTreeList(nodeList, node.id)
 
-            if (child.length) {
-                newNode.child = { ...child }
+            if (children.length > 0) {
+                newNode.children = children
             }
-
             res.push(newNode)
         }
     }
