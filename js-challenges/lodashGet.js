@@ -33,11 +33,11 @@ function _get(obj, path, defaultValue = undefined) {
 
 var object = { 'a': [{ 'b': { 'c': 3 } }] };
 
-console.log(_get(object, 'a[0].b.c'));;
+console.log(_get(object, 'a[0].b.c'));
 // => 3
 
-console.log(_get(object, ['a', '0', 'b', 'c']));;
+console.log(_get(object, ['a', '0', 'b', 'c']));
 // => 3
 
-console.log(_get(object, 'a.b.c', 'default'));;
+console.log(_get(object, 'a.b.c', 'default'));
 // => 'default'
