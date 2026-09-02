@@ -23,21 +23,20 @@ console.log("res:", res)
  */
 function arrayFlatten(arr) {
     if (!Array.isArray(arr)) {
-        throw TypeError('arr is not an array')
+        throw new TypeError('arr is not an array')
     }
 
-    //return arr.reduce((res, curVal) => Array.isArray(curVal) ? res.concat(arrayFlatten(curVal)) : res.concat(curVal), [])
-    const flattenedArr = []
+    const res = []
 
     for (const item of arr) {
-        if (Array.isArray(item)) {
-            flattenedArr.push(...arrayFlatten(item))
+        if (!Array.isArray(item)) {
+            res.push(item)
         } else {
-            flattenedArr.push(item)
+            res.push(...arrayFlatten(item))
         }
     }
 
-    return flattenedArr
+    return res
 }
 
 const arr = [1, [2, 3, [4, 5]], 1, 2, [6, 7]]
