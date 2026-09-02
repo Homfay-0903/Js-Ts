@@ -20,20 +20,21 @@ function concurrency(urlArray) {
 
 /**
  * 
- * @param {Array} urlList 
+ * @param {Array} urls 
+ * @returns
  */
-function concurrency(urlList) {
-    const requestList = urlList.map((url) => {
+function concurrency(urls) {
+    const requests = urls.map((url) => {
         fetch(url).then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`)
-            } else {
+            if (response.ok) {
                 return response
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`)
             }
         })
     })
 
-    return Promise.any(requestList)
+    return Promise.any(requests)
 }
 
 const urls = [
