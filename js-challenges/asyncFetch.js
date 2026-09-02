@@ -37,8 +37,13 @@ async function asyncFetch() {
         })
 }
 */
+/**实现同时并发多个请求 */
+/**
+ * 
+ * @returns 
+ */
 
-async function asyncFetch(params) {
+async function asyncFetch() {
     const api1 = new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
@@ -46,13 +51,13 @@ async function asyncFetch(params) {
             } catch (error) {
                 reject(error)
             }
-        }, 3000);
+        }, 1000)
     })
 
     const api2 = new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
-                
+
                 resolve('api2')
             } catch (error) {
                 reject(error)
