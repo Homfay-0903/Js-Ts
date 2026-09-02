@@ -26,11 +26,15 @@ myInterrupt(test2)
 function myInterrupt(promise, timeout = 5000) {
     const waitPromise = new Promise((_, reject) => {
         setTimeout(() => {
-            reject('timeout!')
-        }, timeout)
+            try {
+                reject('timeout')
+            } catch (error) {
+                reject(error)
+            }
+        }, timeout);
     })
 
-    return Promise.race([promise, waitPromise])
+    return Promise.race([waitPromise, promise])
 }
 
 const p1 = new Promise(resolve => setTimeout(() => resolve('success1'), 4000))
