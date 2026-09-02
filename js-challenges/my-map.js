@@ -13,11 +13,9 @@ Array.prototype.mymap = function (callback) {
 /**实现数组的map方法 */
 Array.prototype.mymap = function (callback) {
     const res = new Array(this.length).fill(0)
-
     for (let i = 0; i < this.length; i++) {
         res[i] = callback(this[i], i, this)
     }
-
     return res
 }
 
