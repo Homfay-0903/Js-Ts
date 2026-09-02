@@ -46,10 +46,10 @@ function cycle(callback, delay) {
         setTimeout(() => {
             try {
                 if (typeof callback === "function") {
-                    callback()
+                    callback(), resolve()
+                } else {
+                    reject('error')
                 }
-
-                resolve()
             } catch (error) {
                 reject(error)
             }
@@ -57,7 +57,7 @@ function cycle(callback, delay) {
     })
 }
 
-async function startLoop(params) {
+async function startLoop() {
     try {
         while (true) {
             await cycle(printf, 1000)
