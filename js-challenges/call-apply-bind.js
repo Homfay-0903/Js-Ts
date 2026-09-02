@@ -33,9 +33,15 @@ Function.prototype.myBind = function (obj, ...args1) {
     }
 }
 */
-
+/**实现 call，apply，bind */
+/**
+ * 
+ * @param {Object} obj 
+ * @param  {...any} args 
+ * @returns 
+ */
 Function.prototype.myCall = function (obj, ...args) {
-    obj = (obj === undefined || obj === null) ? window : obj
+    obj = (obj === null || obj === undefined) ? window : obj
     obj.fn = this
 
     const res = obj.fn(...args)
@@ -44,8 +50,14 @@ Function.prototype.myCall = function (obj, ...args) {
     return res
 }
 
+/**
+ * 
+ * @param {Object} obj 
+ * @param {Array} args 
+ * @returns 
+ */
 Function.prototype.myApply = function (obj, args) {
-    obj = (obj === undefined || obj === null) ? window : obj
+    obj = (obj === null || obj === undefined) ? window : obj
     obj.fn = this
 
     const res = obj.fn(...args)
@@ -54,12 +66,19 @@ Function.prototype.myApply = function (obj, args) {
     return res
 }
 
+/**
+ * 
+ * @param {Object} obj 
+ * @param  {...any} args1 
+ * @returns 
+ */
 Function.prototype.myBind = function (obj, ...args1) {
-    obj = (obj === undefined || obj === null) ? window : obj
+    obj = (obj === null || obj === undefined) ? window : obj
     const cacheThis = this
 
-    return function(...args2) {
+    return function (...args2) {
         obj.fn = cacheThis
+
         const res = obj.fn(...[...args1, ...args2])
         delete obj.fn
 
