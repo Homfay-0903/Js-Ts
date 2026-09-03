@@ -19,7 +19,6 @@ function myInstanceof(left, right) {
     return left.__proto__ === right.prototype || myInstanceof(left.__proto__, right)
 }
 
-
 function Person() { }
 function Apple() { }
 
