@@ -40,7 +40,6 @@ function mySetInterval(callback, delay) {
 
     function run() {
         callback()
-
         if (timerId) {
             timerId = setTimeout(run, delay)
         }
