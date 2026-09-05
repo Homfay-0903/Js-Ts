@@ -41,7 +41,6 @@ async function fetchInParallel() {
 async function fetchInParallel(reqList) {
     try {
         const res = await Promise.all(reqList)
-
         return res
     } catch (error) {
         console.log("其中任意一个请求失败:", error)
@@ -53,11 +52,11 @@ const request1 = new Promise(resolve => setTimeout(() => resolve('s1'), 1000))
 const request2 = new Promise(resolve => setTimeout(() => resolve('s2'), 2000))
 const request3 = new Promise(resolve => setTimeout(() => resolve('s3'), 3000))
 
-;(async function() {
-    try {
-        const res = await fetchInParallel([request1, request2, request3])
-        console.log(...res)
-    } catch (error) {
-        console.log(error)     
-    }
-})()
+    ; (async function () {
+        try {
+            const res = await fetchInParallel([request1, request2, request3])
+            console.log(...res)
+        } catch (error) {
+            console.log(error)
+        }
+    })()
