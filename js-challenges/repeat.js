@@ -32,8 +32,12 @@ repeatLog('hello', 'world', '!')
 function executor(callback, delay) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            callback()
-            resolve()
+            try {
+                callback()
+                resolve()
+            } catch (error) {
+                reject(error)
+            }
         }, delay)
     })
 }
