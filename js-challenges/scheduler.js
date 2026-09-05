@@ -38,36 +38,34 @@ class Scheduler {
 
 /**实现异步任务调度器 */
 class Scheduler {
-    constructor(maxTasksCount) {
-        this.maxTasksCount = maxTasksCount
-        this.curTasksCount = 0
-        this.waitTasksQueue = []
+    constructor(maxTaskCount) {
+        this.maxTaskCount = maxTaskCount
+        this.runningCount = 0
+        this.waitQueue = []
     }
 
     addTask(fn) {
-        return new Promise((reslove, reject) => {
+        return new Promise((resolve, reject) => {
             const run = async () => {
-                this.curTasksCount++
-
+                this.runningCount++
                 try {
                     const res = await fn()
-                    reslove(res)    
+                    resolve(res)
                 } catch (error) {
                     reject(error)
                 } finally {
-                    this.curTasksCount--
-
-                    if (this.waitTasksQueue.length) {
-                        const next = this.waitTasksQueue.shift()
+                    this.runningCount--
+                    if (this.waitQueue.length > 0 && this.runningCount < this.maxTaskCount) {
+                        const next = this.waitQueue.shift()
                         next()
                     }
                 }
             }
 
-            if (this.curTasksCount < this.maxTasksCount) {
+            if (this.runningCount < this.maxTaskCount) {
                 run()
             } else {
-                this.waitTasksQueue.push(run)
+                this.waitQueue.push(run)
             }
         })
     }
@@ -90,6 +88,7 @@ testfn(4000, '2')
 testfn(300, '3')
 testfn(400, '4')
 
+/*
 setTimeout(() => {
     console.log('\n=== 错误测试 ===')
 
@@ -112,3 +111,4 @@ setTimeout(() => {
     testError(300, 'C', false)
     testError(400, 'D', true)
 }, 5000)
+*/
