@@ -46,8 +46,7 @@ function lightSwitch(callback, delay) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
-                callback()
-                resolve()
+                callback(), resolve()
             } catch (error) {
                 reject(error)
             }
