@@ -22,6 +22,8 @@ treeToList(data)
 
 /**实现将 树形结构 转换为 数组（list）结构 */
 
+/*
+// ver-1.0
 function treeToList(tree) {
     const res = []
     const visited = new Set()
@@ -37,6 +39,25 @@ function treeToList(tree) {
             res.push(rest)
 
             if (Array.isArray(children) && children.length) {
+                traverse(children)
+            }
+        }
+    }
+
+    traverse(tree)
+
+    return res
+}
+*/
+
+function treeToList(tree) {
+    const res = []
+
+    function traverse(nodes) {
+        for (const node of nodes) {
+            const { children, ...data } = node
+            res.push(data)
+            if (Array.isArray(children) && children.length > 0) {
                 traverse(children)
             }
         }
