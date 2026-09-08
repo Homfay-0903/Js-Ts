@@ -28,7 +28,7 @@ debounceSearch("apple123");
 */
 
 /**实现防抖函数 */
-function debounce(func, wait, immediate = false) {
+function debounce(func, delay, immediate = false) {
     let timer = null
 
     function debounced(...args) {
@@ -40,9 +40,10 @@ function debounce(func, wait, immediate = false) {
 
         if (immediate) {
             const callNow = !timer
+
             timer = setTimeout(() => {
                 timer = null
-            }, wait)
+            }, delay)
 
             if (callNow) {
                 func.apply(context, args)
@@ -51,7 +52,7 @@ function debounce(func, wait, immediate = false) {
             timer = setTimeout(() => {
                 func.apply(context, args)
                 timer = null
-            }, wait)
+            }, delay)
         }
     }
 
