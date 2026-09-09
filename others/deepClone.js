@@ -47,10 +47,6 @@ function deepClone(obj, map = new WeakMap()) {
  * @returns 
  */
 function deepClone(obj, map = new WeakMap()) {
-    if (obj === null) {
-        return obj
-    }
-
     if (obj === null || typeof obj !== 'object') {
         return obj
     }
@@ -77,13 +73,13 @@ function deepClone(obj, map = new WeakMap()) {
     if (obj instanceof Set) {
         const cloneSet = new Set()
         map.set(obj, cloneSet)
-        obj.forEach(val => cloneSet.add(deepClone(val, map)))
+        obj.forEach((val) => cloneSet.add(deepClone(val, map)))
         return cloneSet
     }
 
     const cloneObj = Array.isArray(obj) ? [] : {}
     map.set(obj, cloneObj)
-    Reflect.ownKeys(obj).forEach(key => cloneObj[key] = deepClone(obj[key], map))
+    Reflect.ownKeys(obj).forEach((key) => cloneObj[key] = deepClone(obj[key], map))
 
     return cloneObj
 }
