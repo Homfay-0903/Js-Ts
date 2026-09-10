@@ -27,4 +27,11 @@ async function lightSwitch() {
     await lightContinue(yellow, 3000)
 }
 
-lightSwitch()
+//lightSwitch()
+
+async function loop() {
+    while (true) {
+        await lightSwitch()
+    }
+}
+loop()
