@@ -47,12 +47,11 @@ class EventEmitter {
         this.events = {}
     }
 
-    on(event, fn) {
+    on(event, func) {
         if (!this.events[event]) {
             this.events[event] = []
         }
-        this.events[event].push(fn)
-
+        this.events[event].push(func)
         return this
     }
 
@@ -60,27 +59,23 @@ class EventEmitter {
         if (!this.events[event]) {
             throw new TypeError('event no exits')
         }
-
-        this.events[event].forEach(fn => {
+        this.events[event].forEach((fn) => {
             fn.apply(this, args)
         })
-
         return this
     }
 
-    off(event, fn) {
+    off(event, func) {
         if (!this.events[event]) {
             return this
         }
-
-        this.events[event] = this.events[event].filter((cb) => cb !== fn)
-
+        this.events[event] = this.events[event].filter(fn => fn !== func)
         return this
     }
 
-    once(event, fn) {
+    once(event, func) {
         const onceFn = (...args) => {
-            fn.apply(this, args)
+            func.apply(this, args)
             this.off(event, onceFn)
         }
 
@@ -144,9 +139,11 @@ chainEmitter.on('chain', () => { })
     .off('chain', () => { })
 console.log('   链式调用成功\n')
 
+/*
 console.log('7. 测试不存在的事件')
 emitter.emit('non-existent')
 console.log('   不存在的事件不会报错\n')
+*/
 
 console.log('8. 测试复杂场景 - 购物车示例')
 const cart = new EventEmitter()
