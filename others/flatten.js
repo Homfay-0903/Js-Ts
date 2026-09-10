@@ -36,20 +36,21 @@ function flattenIterative(arr) {
         throw new TypeError('arr is not a array')
     }
 
-    const stack = [...arr]
     const res = []
+    const stack = [...arr]
 
     while (stack.length > 0) {
-        const next = stack.pop()
+        const item = stack.pop()
 
-        if (Array.isArray(next)) {
-            stack.push(...next)
+        if (Array.isArray(item)) {
+            stack.push(...item)
         } else {
-            res.push(next)
+            res.push(item)
         }
     }
 
-    return res.reverse()
+    res.reverse()
+    return res
 }
 
 function flattenDepth(arr, depth = 1) {
