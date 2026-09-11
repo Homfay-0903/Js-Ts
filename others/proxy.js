@@ -37,32 +37,35 @@ const target = { name: 'xiaoming', age: 18 }
 
 const proxy = new Proxy(target, {
     get(target, key) {
-        console.log(`拦截读取-${key}`)
-        return target[key]
+        if (key in target) {
+            console.log(`读拦截成功，${key}`)
+            return target[key]
+        } else {
+            console.log(`读拦截失败，${key}不存在`)
+        }
     },
 
     set(target, key, value) {
         if (key in target) {
-            console.log(`拦截修改-${key}: ${value}`)
+            console.log(`改拦截成功，${key}-${value}`)
         } else {
-            console.log(`拦截增加-${key}: ${value}`)
+            console.log(`新增拦截成功，${key}-${value}`)
         }
+
         target[key] = value
 
         return true
     },
 
-    deleteProperty(target, key) {
-        console.log(`拦截删除-${key}`)
-
-        if (!(key in target)) {
-            console.log(`属性 ${key} 不存在，删除失败`)
+    deleteProperty(target, key, value) {
+        if (key in target) {
+            console.log(`删除拦截成功，${key}-${value}`)
+            return delete target[key]
+        } else {
+            console.log(`删除拦截失败，不存在：${key}`)
             return false
         }
-
-        return delete target[key]
     }
-
 })
 
 // 测试：所有操作都被拦截
