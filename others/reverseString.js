@@ -24,15 +24,14 @@ function reverseStringInPlace(str) {
  */
 function reverseStringInPlace(str) {
     let left = 0, right = str.length - 1
-    const strArr = str.split('')
+    const chars = str.split('')
 
     while (left < right) {
-        [strArr[left], strArr[right]] = [strArr[right], strArr[left]]
-        left++
-        right--
+        [chars[left], chars[right]] = [chars[right], chars[left]]
+        left++, right--
     }
 
-    return strArr.join('')
+    return chars.join('')
 }
 
 const str = reverseStringInPlace('hello')
