@@ -27,13 +27,11 @@ console.log(p.sayHi())
 
 /**实现 new 方法 */
 function myNew(constructor, ...args) {
-    const newInstance = Object.create(constructor.prototype)
-
-    const res = constructor.apply(newInstance, args)
-
+    const instance = Object.create(constructor.prototype)
+    const res = constructor.apply(instance, args)
     return (res !== null && (typeof res === 'function' || typeof res === 'object'))
         ? res
-        : newInstance
+        : instance
 }
 
 function Person(name, age) {
