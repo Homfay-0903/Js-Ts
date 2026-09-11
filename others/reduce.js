@@ -36,8 +36,9 @@ Array.prototype.myReduce = function (callback, initialValue) {
 */
 
 /**实现 reduce 方法 */
-Array.prototype.myReduce = function(callback, initialValue) {
-    if (this === null) {
+Array.prototype.myReduce = function (callback, initialValue) {
+    const array = this
+    if (array === null) {
         throw new TypeError('Array.prototype.reduce called on null or undefined')
     }
 
@@ -45,25 +46,22 @@ Array.prototype.myReduce = function(callback, initialValue) {
         throw new TypeError(callback + ' is not a function')
     }
 
-    const arr = this
-    const n = arr.length
-
+    const n = array.length
     if (n === 0 && arguments.length < 2) {
         throw new TypeError('Reduce of empty array with no initial value')
     }
 
-    let startIndex, accumulator
-
+    let startIdx, accumulator
     if (arguments.length < 2) {
-        accumulator = arr[0]
-        startIndex = 1
+        accumulator = array[0]
+        startIdx = 1
     } else {
         accumulator = initialValue
-        startIndex = 0
+        startIdx = 0
     }
 
-    for (let i = startIndex; i < n; i++) {
-        accumulator = callback(accumulator, arr[i], i, arr)
+    for (let i = startIdx; i < n; i++) {
+        accumulator = callback(accumulator, array[i], i, array)
     }
 
     return accumulator
