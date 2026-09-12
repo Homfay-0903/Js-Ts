@@ -1,6 +1,7 @@
 /**
  * 冒泡排序
- * @param {Array} arr 
+ * @param {Array} arr
+ * @returns 
  */
 function bubbleSort(arr) {
     const n = arr.length
@@ -42,6 +43,13 @@ function quickSortBase(arr) {
     return [...quickSortBase(left), ...equal, ...quickSortBase(right)]
 }
 
+/**
+ * 
+ * @param {Array} arr 
+ * @param {Number} low 
+ * @param {Number} high 
+ * @returns 
+ */
 function quickSortHigh(arr, low = 0, high = arr.length - 1) {
     if (low >= high) {
         return arr
@@ -49,21 +57,18 @@ function quickSortHigh(arr, low = 0, high = arr.length - 1) {
 
     let leftEnd = low, rightStart = high
     let pointer = leftEnd
-
-    const pivotNum = arr[Math.floor((low + high) / 2)]
+    const pivot = arr[Math.floor((low + high) / 2)]
 
     while (pointer <= rightStart) {
-        const curNum = arr[pointer]
-
-        if (curNum < pivotNum) {
-            [arr[leftEnd], arr[pointer]] = [arr[pointer], arr[leftEnd]]
+        if (arr[pointer] < pivot) {
+            [arr[pointer], arr[leftEnd]] = [arr[leftEnd], arr[pointer]]
+            pointer++
             leftEnd++
+        } else if (arr[pointer] === pivot) {
             pointer++
-        } else if (curNum > pivotNum) {
-            [arr[rightStart], arr[pointer]] = [arr[pointer], arr[rightStart]]
-            rightStart--
         } else {
-            pointer++
+            [arr[pointer], arr[rightStart]] = [arr[rightStart], arr[pointer]]
+            rightStart--
         }
     }
 
