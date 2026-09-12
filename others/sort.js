@@ -1,3 +1,7 @@
+/**
+ * 冒泡排序
+ * @param {Array} arr 
+ */
 function bubbleSort(arr) {
     const n = arr.length
 
