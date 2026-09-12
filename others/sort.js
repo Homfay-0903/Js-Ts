@@ -16,13 +16,18 @@ function bubbleSort(arr) {
     return arr
 }
 
+/**
+ * 基础快速排序
+ * @param {Array} arr 
+ * @returns 
+ */
 function quickSortBase(arr) {
     if (arr.length <= 1) {
         return arr
     }
 
     let left = [], equal = [], right = []
-    const pivot = arr[Math.floor(arr.length / 2)]
+    const pivot = arr[Math.floor((0 + arr.length - 1) / 2)]
 
     for (const num of arr) {
         if (num < pivot) {
