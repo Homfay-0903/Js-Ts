@@ -18,6 +18,11 @@ run(3000)
 */
 
 /**实现一个暂停函数 */
+/**
+ * 
+ * @param {Number} delay 
+ * @returns 
+ */
 function abort(delay) {
     return new Promise(resolve => setTimeout(resolve, delay))
 }
