@@ -15,12 +15,12 @@ function uniqueString(str) {
 */
 /**实现字符串去重 */
 function uniqueString(str) {
-    const seen = new Set()
+    const set = new Set()
     let res = ''
 
     for (const char of str) {
-        if (!seen.has(char)) {
-            seen.add(char)
+        if (!set.has(char)) {
+            set.add(char)
             res += char
         }
     }
