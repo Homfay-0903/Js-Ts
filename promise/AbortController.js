@@ -40,39 +40,29 @@ setTimeout(() => cancel(), 500);
 
 function cancelFetch(delay) {
     const controller = new AbortController()
-    const signal = controller.signal
+    const { signal } = controller
+    const promise = new Promise((resolve, reject) => {
+        if (signal.aborted) {
+            return reject('cancel')
+        }
 
-    const promise1 = new Promise((reslove, reject) => {
         const timerId = setTimeout(() => {
-            try {
-                reslove('success')
-            } catch (error) {
-                reject(error)
-            }
+            resolve('sueecss')
         }, delay)
 
         signal.addEventListener('abort', () => {
-            if (timerId) {
-                clearTimeout(timerId)
-            }
-        })
-    })
-
-    const promise2 = new Promise((_, reject) => {
-        signal.addEventListener('abort', () => {
+            clearTimeout(timerId)
             reject('cancel')
-        })
+        }, { once: true })
     })
-
-    const race = Promise.race([promise1, promise2])
 
     return {
-        promise: race,
+        promise,
         cancel: () => controller.abort()
     }
 }
 
-const { promise, cancel } = cancelFetch(1000)
+const { promise, cancel } = cancelFetch(3000)
 
 promise
     .then(
