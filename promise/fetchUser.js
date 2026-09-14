@@ -24,7 +24,11 @@ fetchUser(2)
     .catch(err => console.error(err));
 */
 
-/**实现获取特定用户信息的函数 */
+/**
+ * 实现获取特定用户信息的函数
+ * @param {Number} userId 
+ * @returns 
+ */
 function getUniqueUser(userId) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
