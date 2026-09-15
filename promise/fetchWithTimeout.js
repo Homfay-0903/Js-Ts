@@ -20,7 +20,12 @@ fetchWithTimeout('https://jsonplaceholder.typicode.com/todos/1', 5000)
     .catch(err => console.error('错误:', err.message));
 */
 
-/**实现请求函数，超时则终止 */
+/**
+ * 实现请求函数，超时则终止
+ * @param {Function} yourFetch 
+ * @param {Number} timeout 
+ * @returns 
+ */
 function fetchWithTimeout(yourFetch, timeout) {
     const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
