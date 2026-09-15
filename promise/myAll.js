@@ -30,21 +30,24 @@
 
     })
 }*/
-/**实现Promise.all */
+
 /**
- * 
+ * 实现Promise.all
  * @param {Array} promises 
  */
 function myAll(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promises must be an array'))
+            throw new TypeError('promises must be an Array')
         }
 
         const res = []
         const n = promises.length
-
         let finishedCount = 0
+
+        if (n === 0) {
+            return reject(res)
+        }
 
         try {
             for (let i = 0; i < n; i++) {
@@ -53,18 +56,18 @@ function myAll(promises) {
                         (val) => {
                             res[i] = val
                             finishedCount++
-
                             if (finishedCount === n) {
                                 resolve(res)
                             }
                         },
-                        (err) => reject(err)
+                        (err) => {
+                            reject(err)
+                        }
                     )
             }
         } catch (error) {
             reject(error)
         }
-
     })
 }
 
