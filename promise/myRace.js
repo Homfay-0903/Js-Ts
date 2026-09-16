@@ -20,10 +20,15 @@
     })
 }*/
 
+/**
+ * 
+ * @param {Array} promises 
+ * @returns 
+ */
 function myRace(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promise must be an Array'))
+            throw new TypeError('promise must be an Array')
         }
 
         const n = promises.length
