@@ -32,34 +32,39 @@
         }
     })
 }*/
-/**实现Promise.allSettled */
 
 /**
- * 
+ * 实现Promise.allSettled
  * @param {Array} promises 
  * @returns 
  */
 function myAllsettled(promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promises must be an array'))
+            throw new TypeError('promise must be an Array')
         }
 
         const res = []
         const n = promises.length
-
         let finishedCount = 0
+
+        if (n === 0) {
+            return reject(res)
+        }
 
         try {
             for (let i = 0; i < n; i++) {
                 Promise.resolve(promises[i])
                     .then(
-                        (val) => res[i] = { status: 'fufilled', value: val },
-                        (err) => res[i] = { status: 'rejected', reason: err }
+                        (val) => {
+                            res[i] = { status: 'fulfilled', value: val }
+                        },
+                        (err) => {
+                            res[i] = { status: 'reject', reason: err }
+                        }
                     )
                     .finally(() => {
                         finishedCount++
-
                         if (finishedCount === n) {
                             resolve(res)
                         }
@@ -68,7 +73,6 @@ function myAllsettled(promises) {
         } catch (error) {
             reject(error)
         }
-
     })
 }
 
