@@ -43,17 +43,16 @@ Promise.myAny = function (promiseList) {
 Promise.myAny = function (promises) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promises)) {
-            return reject(new TypeError('promises must be an Array'))
+            throw new TypeError('promises must be an Array')
         }
 
         const errors = []
         const n = promises.length
+        let rejectedCount = 0
 
         if (n === 0) {
-            return reject(new AggregateError([], 'promises can not be null'))
+            return reject(new AggregateError(errors, 'promise length can not be 0'))
         }
-
-        let rejectedCount = 0
 
         try {
             for (let i = 0; i < n; i++) {
@@ -61,11 +60,10 @@ Promise.myAny = function (promises) {
                     .then(
                         (val) => resolve(val),
                         (err) => {
-                            rejectedCount++
                             errors[i] = err
-
+                            rejectedCount++
                             if (rejectedCount === n) {
-                                reject(new AggregateError(errors, 'All promises were rejected'))
+                                reject(new AggregateError(errors, 'all promises rejected'))
                             }
                         }
                     )
