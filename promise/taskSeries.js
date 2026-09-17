@@ -1,10 +1,8 @@
-/** TODO: 返回一个 Promise，结果为 ['A', 'B', 'C'],期望输出 ['A', 'B', 'C']，且串行执行 */
 /**
- * 
+ * TODO: 返回一个 Promise，结果为 ['A', 'B', 'C'],期望输出 ['A', 'B', 'C']，且串行执行
  * @param {Array} tasks 
  */
 async function runTasksInSeries(tasks) {
-
     if (!Array.isArray(tasks)) {
         return new TypeError('tasks must be an array')
     }
