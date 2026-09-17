@@ -24,12 +24,11 @@ function runTasksInParallel(tasks) {
 
         const res = []
         const n = tasks.length
+        let finishedCount = 0
 
         if (n === 0) {
             return reject(new TypeError('tasks can not be null'))
         }
-
-        let finishedCount = 0
 
         for (let i = 0; i < n; i++) {
             Promise.resolve(tasks[i]())
