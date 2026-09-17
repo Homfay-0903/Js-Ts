@@ -27,7 +27,11 @@ async function retry(fn, retries) {
 retry(unstableRequest, 3).then(console.log).catch(console.error);
 */
 
-/**实现一个重复请求的函数，成功为止 */
+/**
+ * 实现一个重复请求的函数，成功为止
+ * @param {Number} retryIdx 
+ * @returns 
+ */
 function unstableRequest(retryIdx) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -46,7 +50,7 @@ async function retry(reqFn, retryCount) {
         } catch (error) {
             console.log(error)
         } finally {
-             console.log(`defeat, have ${retryCount - i - 1} times only`)
+            console.log(`defeat, have ${retryCount - i - 1} times only`)
 
             if (i === retryCount) {
                 return 'no retry count'
