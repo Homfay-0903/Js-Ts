@@ -27,7 +27,13 @@ debounceSearch("apple123");
 // 结果：只打印一次 → 发送搜索请求：apple
 */
 
-/**实现防抖函数 */
+/**
+ * 实现防抖函数
+ * @param {Function} func 
+ * @param {Number} delay 
+ * @param {boolean} immediate 
+ * @returns 
+ */
 function debounce(func, delay, immediate = false) {
     let timer = null
 
@@ -64,6 +70,18 @@ function debounce(func, delay, immediate = false) {
     }
 
     return debounced
+}
+
+function basicDebounce(fn, delay) {
+    let timer = null
+    return function (...args) {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            fn(...args)
+        }, delay)
+    }
 }
 
 // ==================== 测试代码 ====================
