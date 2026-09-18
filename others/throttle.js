@@ -25,7 +25,12 @@ while (true) {
 }
 */
 
-/**实现节流函数 */
+/**
+ * 实现节流函数
+ * @param {Function} func 
+ * @param {number} wait 
+ * @returns 
+ */
 function throttle(func, wait) {
     let timer = null
     let previous = 0
@@ -77,6 +82,21 @@ function throttle(func, wait) {
     }
 
     return throttled
+}
+
+function baseThrottle(fn, delay) {
+    let lastTime = 0
+
+    return function (...args) {
+        const curTime = Date.now()
+
+        if (curTime - lastTime < delay) {
+            return
+        }
+
+        lastTime = curTime
+        fn(...args)
+    }
 }
 
 // ==================== 测试代码 ====================
