@@ -25,10 +25,16 @@ console.log(p.name)
 console.log(p.sayHi())
 */
 
-/**实现 new 方法 */
+/**
+ * 实现 new 方法
+ * @param {Function} constructor 
+ * @param  {...any} args 
+ * @returns 
+ */
 function myNew(constructor, ...args) {
     const instance = Object.create(constructor.prototype)
     const res = constructor.apply(instance, args)
+
     return (res !== null && (typeof res === 'function' || typeof res === 'object'))
         ? res
         : instance
