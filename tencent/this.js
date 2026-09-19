@@ -15,3 +15,19 @@ obj.bar();
 const { foo, bar } = obj;
 foo();
 bar();
+
+/**
+ * node
+ * 1 2
+ * unde unde 
+ * unde unde 
+ * unde unde 
+ */
+
+/**
+ * browser
+ * 1 2
+ * 10 unde
+ * 10 unde
+ * 10 unde
+ */
