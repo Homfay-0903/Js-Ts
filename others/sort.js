@@ -45,20 +45,20 @@ function quickSortBase(arr) {
 }
 
 /**
- * 
+ * 高级快速排序
  * @param {Array} arr 
  * @param {Number} low 
  * @param {Number} high 
  * @returns 
  */
-function quickSortHigh(arr, low = 0, high = arr.length - 1) {
-    if (low >= high) {
-        return arr
+function quickSortHigh(arr, left = 0, right = arr.length - 1) {
+    if (left >= right) {
+        return
     }
 
-    let leftEnd = low, rightStart = high
+    const pivot = arr[Math.floor((left + right) / 2)]
+    let leftEnd = left, rightStart = right
     let pointer = leftEnd
-    const pivot = arr[Math.floor((low + high) / 2)]
 
     while (pointer <= rightStart) {
         if (arr[pointer] < pivot) {
@@ -73,8 +73,8 @@ function quickSortHigh(arr, low = 0, high = arr.length - 1) {
         }
     }
 
-    quickSortHigh(arr, low, leftEnd - 1)
-    quickSortHigh(arr, rightStart + 1, high)
+    quickSortHigh(arr, left, leftEnd - 1)
+    quickSortHigh(arr, rightStart + 1, right)
 
     return arr
 }
