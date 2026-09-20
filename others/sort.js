@@ -23,14 +23,15 @@ function bubbleSort(arr) {
  * @returns 
  */
 function quickSortBase(arr) {
-    if (arr.length <= 1) {
+    const n = arr.length
+    if (n < 2) {
         return arr
     }
 
-    let left = [], equal = [], right = []
-    const pivot = arr[Math.floor((0 + arr.length - 1) / 2)]
+    const left = [], equal = [], right = []
+    const pivot = arr[Math.floor(n / 2)]
 
-    for (const num of arr) {
+    for (num of arr) {
         if (num < pivot) {
             left.push(num)
         } else if (num === pivot) {
