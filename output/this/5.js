@@ -1,0 +1,22 @@
+var a = 10
+var obj = {
+    a: 20,
+    say() {
+        console.log(this.a)
+    }
+}
+obj.say()
+var anotherObj = { a: 30 }
+obj.say.apply(anotherObj)
+
+/**
+ * browser
+ * 20
+ * 30
+ */
+
+/**
+ * node
+ * 20
+ * 30
+ */
