@@ -11,3 +11,8 @@ console.log(Dog.prototype.constructor === Dog && dog.constructor === Dog && dog 
  * browser
  * true
  */
+
+/**
+ * node
+ * true
+ */
